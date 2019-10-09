@@ -6,17 +6,17 @@ var board = {
       col: 0,
       isMine: false,
       hidden: true,
-      surroundingMines: 1
+      surroundingMines: 0
       }, {row: 1,
       col: 0,
       isMine: false,
       hidden: true,
-      surroundingMines: 1,
+      surroundingMines: 0
       }, {row: 0,
       col: 1,
       isMine: false,
       hidden: true,
-      surroundingMines: 1
+      surroundingMines: 0
       }, {row: 1,
       col: 1,
       isMine: true,
@@ -26,8 +26,12 @@ var board = {
   ]
 }
 
+
+
 function startGame () {
   // Don't remove this function call: it makes the game work!
+  populateCells(10, 10); //an as yet uwritten function which automatically fills out the cells array with a grid of cells when given the number of rows and columns in the grid of cells. 
+  
   for (i=0; i<board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
@@ -54,7 +58,7 @@ function startGame () {
 //
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
-function countSurroundingMines (cell) {
+function countSurroundingMines(cell) {
   var surroundingMines = 0;
   // var gridPosition = [board.cells.row, board.cells.col]
   var surroundingCells = lib.getSurroundingCells(cell.row, cell.col);
@@ -65,3 +69,21 @@ function countSurroundingMines (cell) {
   }
 }
 
+function populateCells(x,y) {
+  for (j=0; j<(y); j++) {
+    for (i=0; i<(x); i++) {
+      board.cells.push({row: j,
+      col: i,
+      isMine: randomBoolean(),
+      hidden: true,
+      surroundingMines: 0
+      });
+    }
+  }
+   
+}
+
+function randomBoolean() {
+  var randomBool = Math.random() >= 0.7;
+  return randomBool;
+} 
