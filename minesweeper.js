@@ -16,13 +16,13 @@ var board = {
       surroundingMines: 0
       }, {row: 3,
       col: 1,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
       }, {row: 1,
       col: 2,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
@@ -34,25 +34,25 @@ var board = {
       surroundingMines: 0
       }, {row: 3,
       col: 2,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
       }, {row: 1,
       col: 3,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
       }, {row: 2,
       col: 3,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
       }, {row: 3,
       col: 3,
-      isMine: true,
+      isMine: false,
       hidden: true,
       isMarked: false,
       surroundingMines: 0
@@ -86,28 +86,17 @@ function startGame () {
 // 2. Are all of the mines marked?
 function checkForWin() { 
   for (i=0; i<board.cells.length; i++) {
-    if (!board.cells[i].isMarked == board.cells[i].isMine == true) {
+    if (!board.cells[i].isMarked && board.cells[i].isMine) {
       return;
-    } else if (board.cells[i].hidden == !board.cells[i].isMine == false) {
+    } else if (board.cells[i].hidden && !board.cells[i].isMine) {
       return;
     }
   }
   
     lib.displayMessage('You win!')
-    return "winrar"
+
 }
 
-function winTestPrint() {
-  var printout = []
-  for (i=0; i<board.cells.length; i++) {
-    if (!board.cells[i].isMarked == board.cells[i].isMine == true) {
-      printout.push(board.cells[i]);
-    } else if (board.cells[i].hidden == !board.cells[i].isMine == false) {
-      printout.push(board.cells[i]);
-    }
-  }
-    return printout;
-}
 
 
 // Define this function to count the number of mines around the cell
@@ -121,8 +110,8 @@ function winTestPrint() {
 function countSurroundingMines(cell) {
   var surroundingMines = 0;
   var surroundingCells = lib.getSurroundingCells(cell.row, cell.col);
-  for (i=0; i<surroundingCells.length; i++) {
-    if (surroundingCells[i].isMine == true) {
+  for (j=0; j<surroundingCells.length; j++) {
+    if (surroundingCells[j].isMine == true) {
       surroundingMines++;
     }
   }
